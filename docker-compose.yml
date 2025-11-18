@@ -1,0 +1,14 @@
+services:
+  preprocessor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.preproc
+    container_name: lidar_preprocessor
+    volumes:
+      - ./data/raw:/data/raw:ro
+      - ./data/bev_tiles:/data/bev_tiles
+      - ./data/cam_views:/data/cam_views
+      - ./src:/app/src
+    working_dir: /app
+    command: "bash"
+    tty: true

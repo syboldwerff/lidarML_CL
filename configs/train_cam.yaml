@@ -1,0 +1,21 @@
+"""
+Configuration for camera object detection training.
+
+YOLO models are trained using the Ultralytics CLI.  Specify the
+dataset YAML file and the model configuration.  You can adjust
+hyperparameters such as the number of epochs and batch size.
+"""
+
+model:
+  cfg: yolov8s.yaml
+
+data:
+  yaml: data/dataset/cam/data.yaml
+
+training:
+  epochs: 50
+  batch_size: 16
+  imgsz: 640
+
+output:
+  project_dir: outputs/cam

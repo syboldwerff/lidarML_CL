@@ -1,0 +1,24 @@
+FROM python:3.10-slim
+
+# Training container that includes machine learning frameworks.  This
+# image installs PyTorch, Lightning and the Ultralytics YOLO package
+# for camera object detection.  CUDA support is not enabled by
+# default; extend this image on top of a CUDA base image if needed.
+
+WORKDIR /app
+
+COPY ./src ./src
+COPY ./configs ./configs
+
+RUN pip install --no-cache-dir \
+    torch==2.1.0 \
+    torchvision==0.16.0 \
+    torchaudio==2.1.0 \
+    pytorch-lightning \
+    ultralytics \
+    numpy \
+    pandas \
+    scikit-learn \
+    opencv-python-headless
+
+CMD ["python"]

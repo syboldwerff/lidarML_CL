@@ -1,0 +1,46 @@
+"""
+Configuration file for the preprocessing pipeline.
+
+This YAML document contains default parameters for each preprocessing
+step.  Adjust values according to the characteristics of your
+dataset.  Paths may be relative to the project root or absolute.
+"""
+
+# Trajectory correction
+trajectory:
+  smoothing_window: 11
+  boresight_offset: [0.0, 0.0, 0.0]
+
+# LiDAR filters
+filters:
+  max_range: 120.0
+  intensity_threshold: 0.0
+  spike_kernel: 5
+  spike_threshold: 1.0
+  target_density: 100.0
+
+# Ground normalisation
+ground:
+  window_size: 5.0
+  quantile: 0.05
+
+# Intensity normalisation
+intensity:
+  reference_range: 50.0
+  n_clusters: 3
+
+# Tiling
+tiler:
+  tile_size: 20.0
+  density_threshold: 50.0
+
+# BEV generator
+bev:
+  resolution: 0.1
+
+# Camera generator
+camera:
+  image_width: 1024
+  image_height: 768
+  focal_length: 800.0
+  yaw: 0.0

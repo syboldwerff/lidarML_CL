@@ -1,0 +1,13 @@
+"""
+Configuration for road model reconstruction.
+"""
+
+lanes:
+  lane_width: 3.5  # metres
+  num_lanes: 2
+
+crow96b:
+  default_width: 100.0  # mm
+
+profiles:
+  step: 0.5

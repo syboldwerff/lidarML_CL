@@ -1,0 +1,23 @@
+"""
+Configuration for BEV semantic segmentation training.
+Update paths to point to your dataset directories.  You can also
+adjust hyperparameters such as learning rate and batch size.
+"""
+
+dataset:
+  train_images: data/dataset/bev/images/train
+  train_masks: data/dataset/bev/masks/train
+  val_images: data/dataset/bev/images/val
+  val_masks: data/dataset/bev/masks/val
+
+model:
+  n_classes: 2
+
+training:
+  epochs: 20
+  batch_size: 4
+  learning_rate: 0.001
+  device: null  # 'cpu' or 'cuda'; null will auto select
+
+output:
+  model_path: outputs/bev_unet.pt

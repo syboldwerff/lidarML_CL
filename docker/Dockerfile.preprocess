@@ -1,0 +1,26 @@
+FROM python:3.10-slim
+
+# This container image installs only the dependencies required to run
+# the preprocessing pipeline.  It intentionally avoids heavy ML
+# libraries to keep the image small and fast to build.  For GPU
+# acceleration or additional libraries, extend this Dockerfile as
+# necessary.
+
+WORKDIR /app
+
+# Copy only the source and configuration files needed for preprocessing.
+COPY ./src ./src
+COPY ./configs ./configs
+
+# Install core scientific Python packages.  Numba is used for fast
+# rasterisation in the BEV generator.  PyArrow is required to write
+# Parquet mapping files.
+RUN pip install --no-cache-dir \
+    numpy \
+    pandas \
+    scikit-learn \
+    numba \
+    pyarrow \
+    opencv-python-headless
+
+CMD ["python"]
