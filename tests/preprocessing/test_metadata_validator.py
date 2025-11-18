@@ -20,7 +20,7 @@ class TestMetadataValidator:
             [100200.0, 450200.0, 15.0],
         ])
 
-        assert validator.validate_crs(points) is True
+        assert validator.validate_crs(points) == True
 
     def test_validate_crs_invalid_coordinates(self):
         """Test CRS validation with invalid coordinates."""
@@ -32,7 +32,7 @@ class TestMetadataValidator:
             [1.0, 1.0, 1.0],
         ])
 
-        assert validator.validate_crs(points) is False
+        assert validator.validate_crs(points) == False
 
     def test_check_rgb_present(self):
         """Test RGB check when RGB is present."""
@@ -45,7 +45,7 @@ class TestMetadataValidator:
         ])
 
         has_rgb, rgb_range = validator.check_rgb(points)
-        assert has_rgb is True
+        assert has_rgb == True
         assert rgb_range[0] == 100
         assert rgb_range[1] == 210
 
@@ -59,7 +59,7 @@ class TestMetadataValidator:
         ])
 
         has_rgb, rgb_range = validator.check_rgb(points)
-        assert has_rgb is False
+        assert has_rgb == False
         assert rgb_range is None
 
     def test_check_intensity_present(self):
@@ -72,7 +72,7 @@ class TestMetadataValidator:
         ])
 
         has_intensity, int_range = validator.check_intensity(points)
-        assert has_intensity is True
+        assert has_intensity == True
         assert int_range[0] == 128.0
         assert int_range[1] == 130.0
 
@@ -108,9 +108,9 @@ class TestMetadataValidator:
         metadata = validator.validate(points)
 
         assert isinstance(metadata, ScanMetadata)
-        assert metadata.crs_ok is True
-        assert metadata.has_rgb is True
-        assert metadata.has_intensity is True
+        assert metadata.crs_ok == True
+        assert metadata.has_rgb == True
+        assert metadata.has_intensity == True
         assert metadata.point_count == 3
         assert metadata.provider == "test_provider"
         assert metadata.bbox == (100000.0, 450000.0, 10.0, 100200.0, 450200.0, 15.0)

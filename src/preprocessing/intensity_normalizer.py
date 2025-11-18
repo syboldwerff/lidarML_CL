@@ -192,6 +192,11 @@ class IntensityNormalizer:
             Tuple of (updated points, material labels).
         """
         pts = points.copy()
+
+        # If no intensity data present, skip normalisation
+        if pts.shape[1] < 5:
+            return pts, np.zeros(len(pts), dtype=int)
+
         distances = pts[:, 3]
         raw_int = pts[:, 4]
         comp_int = self.compensate_range(distances, raw_int)

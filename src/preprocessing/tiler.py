@@ -88,13 +88,27 @@ class Tiler:
         list of Tile
             All non‑empty tiles.
         """
+        # Handle empty point cloud
+        if len(points) == 0:
+            return []
+
         x = points[:, 0]
         y = points[:, 1]
         x_min, y_min = x.min(), y.min()
         x_max, y_max = x.max(), y.max()
+
         # Compute tile indices for each point
         i = np.floor((x - x_min) / self.size).astype(int)
         j = np.floor((y - y_min) / self.size).astype(int)
+
+        # Clamp points at max boundary to the last tile
+        # (Points at exactly x_max or y_max should go in the last tile, not create a new one)
+        if x_max > x_min:
+            max_i = int(np.ceil((x_max - x_min) / self.size)) - 1
+            i = np.minimum(i, max_i)
+        if y_max > y_min:
+            max_j = int(np.ceil((y_max - y_min) / self.size)) - 1
+            j = np.minimum(j, max_j)
         tiles: Dict[Tuple[int, int], List[int]] = {}
         for idx, (ti, tj) in enumerate(zip(i, j)):
             key = (ti, tj)

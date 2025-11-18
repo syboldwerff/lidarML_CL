@@ -52,7 +52,14 @@ class ScanMetadata:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert metadata to dictionary format."""
-        return asdict(self)
+        data = asdict(self)
+        # Convert numpy types to Python types for JSON serialization
+        for key, value in data.items():
+            if hasattr(value, 'item'):  # numpy scalar
+                data[key] = value.item()
+            elif isinstance(value, tuple) and len(value) > 0 and hasattr(value[0], 'item'):
+                data[key] = tuple(v.item() if hasattr(v, 'item') else v for v in value)
+        return data
 
     def save(self, path: Path) -> None:
         """Save metadata to JSON file.
